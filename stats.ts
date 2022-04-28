@@ -8,10 +8,12 @@ function readAllNumbers() : number[] {
     for (let i = 0; i < lines.length; i++){
         if (lines[i] === "")
             continue;
-        let num = Number(lines[i]);
-        if (isNaN(num))
-            continue;
-        numbers.push(num);
+        let numStrs : string[] = lines[i].split(' ');
+        for (let numStr of numStrs) {
+            if (isNaN(Number(numStr)))
+                continue;
+            numbers.push(Number(numStr))
+        }
     }
     return numbers;
 }
@@ -41,17 +43,25 @@ function getAboveBelowMean(nums : number[]) : [number, number] {
 
 function getMedian(nums : number[]) : number {
     //Step 1
-    return NaN; // remove me!
+    if (nums.length % 2 === 1)
+        return nums[(nums.length - 1) / 2]; // mid index
+    else
+        return (nums[nums.length / 2 - 1] + nums[nums.length / 2]) / 2; // avg 2 mids
 }
 
 function getMinMax(nums : number[]) : [number, number] {
     //Step 2
-    return [NaN, NaN]; // remove me!
+    return [nums[0], nums[nums.length -1]];
 }
 
 function getStdDev(nums : number[]) : number {
     //Step 3
-    return NaN; // remove me!
+    let mean_nums = getMean(nums);
+    let sq_distances = []; // collect squared distances
+    for (const num of nums){
+        sq_distances.push((mean_nums - num) ** 2);
+    }
+    return getMean(sq_distances) ** (1/2); // square root of mean of sq_distances
 }
 
 let basicStatsAnalyzeButton = document.querySelector("button#analyze") as HTMLButtonElement;
