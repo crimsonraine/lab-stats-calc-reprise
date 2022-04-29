@@ -72,12 +72,28 @@ basicStatsAnalyzeButton.addEventListener("click", function () {
 });
 // PART B: Advanced Integer Stats
 function getLeastCommonMultiple(nums) {
-    return NaN; // remove me!
+    var multiple = Number(nums[nums.length - 1]);
+    var incrementNum = Number(nums[nums.length - 1]);
+    var lcm = nums.every(function (num) { return (multiple % num === 0); });
+    while (lcm != true) {
+        multiple += incrementNum;
+        lcm = nums.every(function (num) { return (multiple % num === 0); });
+    }
+    return multiple;
 }
 function getAllCommonFactors(nums) {
-    return [NaN]; // remove me!
+    var smallest = nums[0];
+    var gcfs = [1];
+    var _loop_1 = function (i) {
+        if (nums.every(function (num) { return (num % i === 0); }))
+            gcfs.push(i);
+    };
+    for (var i = 2; i <= smallest; i++) {
+        _loop_1(i);
+    }
+    return gcfs;
 }
-var advancedStatsAnalyzeButton = document.querySelector("button#analyze");
+var advancedStatsAnalyzeButton = document.querySelector("button#analyze-advanced");
 advancedStatsAnalyzeButton.addEventListener("click", function () {
     var numbers = readAllNumbers();
     //Note: Sorting numbers requires passing a custom comparison function to .sort()

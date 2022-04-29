@@ -80,14 +80,28 @@ basicStatsAnalyzeButton.addEventListener("click", function () {
 // PART B: Advanced Integer Stats
 
 function getLeastCommonMultiple(nums : number[]) : number {
-    return NaN; // remove me!
+    let multiple : number = Number(nums[nums.length - 1]);
+    let incrementNum = Number(nums[nums.length - 1]);
+
+    let lcm : Boolean = nums.every((num) => {return(multiple % num === 0)});
+    while (lcm != true) {
+        multiple += incrementNum;
+        lcm = nums.every((num) => {return(multiple % num === 0)});
+    }
+    return multiple;
 }
 
 function getAllCommonFactors(nums : number[]) : number[] {
-    return [NaN]; // remove me!
+    let smallest : number = nums[0];
+    let gcfs : number[] = [1]
+    for (let i : number = 2; i <= smallest; i++) {
+        if (nums.every((num) => {return(num % i === 0)}))
+            gcfs.push(i)
+    }
+    return gcfs;
 }
 
-let advancedStatsAnalyzeButton = document.querySelector("button#analyze") as HTMLButtonElement;
+let advancedStatsAnalyzeButton = document.querySelector("button#analyze-advanced") as HTMLButtonElement;
 advancedStatsAnalyzeButton.addEventListener("click", function () {
     let numbers : number[] = readAllNumbers();
     //Note: Sorting numbers requires passing a custom comparison function to .sort()
